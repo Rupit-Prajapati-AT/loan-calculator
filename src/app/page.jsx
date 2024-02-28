@@ -1,14 +1,36 @@
 "use client";
-import { FormControl, FormLabel, Input, Button, Box } from "@chakra-ui/react";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  Box,
+  Text,
+} from "@chakra-ui/react";
 import { useState } from "react";
 
 export default function Home() {
-  const [downPayment, setDownPayment] = useState("");
-  const [salary, setSalary] = useState("");
-  const [maxSalary, setMaxSalary] = useState("");
-  const [tenure, setTenure] = useState("");
-  const [interest, setInterest] = useState("");
+  const [downPayment, setDownPayment] = useState();
+  const [salary, setSalary] = useState();
+  const [maxSalary, setMaxSalary] = useState();
+  const [tenure, setTenure] = useState();
+  const [interest, setInterest] = useState();
+  const [totalInterestAmount, setTotalInterestAmount] = useState();
+  const [loanAmount, setLoanAmount] = useState();
   const [error, setError] = useState(false);
+
+  const calculateLoanAmount = (e) => {
+    e.preventDefault();
+    var monthlyInterestRate = interest / 12 / 100;
+
+    var amountWithoutInterest =
+      (maxSalary * Math.pow(1 + monthlyInterestRate, tenure) - maxSalary) /
+      (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, tenure));
+    setLoanAmount(amountWithoutInterest);
+    var totalInterestAmount = maxSalary * tenure;
+    var totalLoanAmount = totalInterestAmount - amountWithoutInterest;
+    setTotalInterestAmount(totalLoanAmount);
+  };
 
   return (
     <>
@@ -27,7 +49,7 @@ export default function Home() {
             <FormLabel htmlFor="downPayment">Current Salary</FormLabel>
             <Input
               value={salary}
-              onChange={(e) => {
+              onBlur={(e) => {
                 setSalary(e.target.value);
                 setMaxSalary(e.target.value / 10);
               }}
@@ -57,13 +79,12 @@ export default function Home() {
             <Input
               value={tenure}
               onChange={(e) => {
-                setTenure(e.target.value)
+                setTenure(e.target.value);
               }}
               type="number"
               placeholder="Enter tenure of loan in month"
             />
             {/* {error ? "The month should be from 36 to 60" : ""} */}
-
           </FormControl>
           <FormControl id="downPayment" mb="4">
             <FormLabel htmlFor="downPayment">Interest of Loan</FormLabel>
@@ -74,14 +95,17 @@ export default function Home() {
               placeholder="Enter interest of loan"
             />
           </FormControl>
-          <FormControl id="downPayment" mb="4">
-            <FormLabel htmlFor="downPayment">You can afford it under</FormLabel>
-            <Input type="number" placeholder="Enter down payment amount" />
-          </FormControl>
-          <Button type="submit" colorScheme="blue">
+          <Button
+            type="submit"
+            onClick={calculateLoanAmount}
+            colorScheme="blue"
+          >
             Submit
           </Button>
         </form>
+        {loanAmount && <Text>Loan Amount : {loanAmount}</Text>}
+        {totalInterestAmount && <Text>Interest on Loan Amount : {totalInterestAmount}</Text>}
+        {loanAmount && totalInterestAmount && <Text>Total Loan Amount with Interest : {loanAmount + totalInterestAmount}</Text>}
       </Box>
     </>
   );
