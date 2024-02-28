@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <>
       <Box maxW="400px" m="auto" p="4">
-        <form>
+        <form onSubmit={calculateLoanAmount}>
           <FormControl id="downPayment" mb="4">
             <FormLabel htmlFor="downPayment">Down Payment Amount</FormLabel>
             <Input
@@ -97,7 +97,6 @@ export default function Home() {
           </FormControl>
           <Button
             type="submit"
-            onClick={calculateLoanAmount}
             colorScheme="blue"
           >
             Submit
