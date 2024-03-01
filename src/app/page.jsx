@@ -10,26 +10,26 @@ import {
 import { useState } from "react";
 
 export default function Home() {
-  const [downPayment, setDownPayment] = useState();
+  const [ downPayment, setDownPayment] = useState();
   const [salary, setSalary] = useState();
   const [maxSalary, setMaxSalary] = useState();
   const [tenure, setTenure] = useState();
   const [interest, setInterest] = useState();
   const [totalInterestAmount, setTotalInterestAmount] = useState();
   const [loanAmount, setLoanAmount] = useState();
+  const [affordableAmount, setAffordableAmount] = useState()
   const [error, setError] = useState(false);
 
   const calculateLoanAmount = (e) => {
     e.preventDefault();
     var monthlyInterestRate = interest / 12 / 100;
-
     var amountWithoutInterest =
       (maxSalary * Math.pow(1 + monthlyInterestRate, tenure) - maxSalary) /
       (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, tenure));
     setLoanAmount(amountWithoutInterest);
     var totalInterestAmount = maxSalary * tenure;
-    var totalLoanAmount = totalInterestAmount - amountWithoutInterest;
-    setTotalInterestAmount(totalLoanAmount);
+    setTotalInterestAmount(totalInterestAmount - amountWithoutInterest);
+    setAffordableAmount(downPayment + totalInterestAmount + amountWithoutInterest)
   };
 
   return (
@@ -105,6 +105,7 @@ export default function Home() {
         {loanAmount && <Text>Loan Amount : {loanAmount}</Text>}
         {totalInterestAmount && <Text>Interest on Loan Amount : {totalInterestAmount}</Text>}
         {loanAmount && totalInterestAmount && <Text>Total Loan Amount with Interest : {loanAmount + totalInterestAmount}</Text>}
+        {affordableAmount && <Text>Affordable Car under : {affordableAmount}</Text>}
       </Box>
     </>
   );
