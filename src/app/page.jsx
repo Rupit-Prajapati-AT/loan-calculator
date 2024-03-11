@@ -6,6 +6,7 @@ import {
   Button,
   Box,
   Text,
+  Flex,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -120,7 +121,7 @@ export default function Home() {
             </FormLabel>
             <Input
               value={tenure}
-              onChange={(e) => {
+              onBlur={(e) => {
                 if (e.target.value >= 36 && e.target.value <= 60) {
                   setTenure(e.target.value);
                 } else {
@@ -155,18 +156,20 @@ export default function Home() {
             Submit
           </Button>
         </form>
-        {!error && loanAmount && <Text>Loan Amount : {loanAmount}</Text>}
-        {!error && totalInterestAmount && (
+        <Flex flexDir={'column'} gap={3} pt={3}>
+        {!error && !isNaN(loanAmount) && <Text>Loan Amount : {loanAmount}</Text>}
+        {!error && !isNaN(totalInterestAmount) && (
           <Text>Interest on Loan Amount : {totalInterestAmount}</Text>
         )}
-        {!error && loanAmount && totalInterestAmount && (
+        {!error && !isNaN(loanAmount) && !isNaN(totalInterestAmount) && (
           <Text>
             Total Loan Amount with Interest : {loanAmount + totalInterestAmount}
           </Text>
         )}
-        {!error && affordableAmount && (
+        {!error && !isNaN(affordableAmount) && (
           <Text>Affordable Car under : {affordableAmount}</Text>
         )}
+        </Flex>
       </Box>
     </>
   );
