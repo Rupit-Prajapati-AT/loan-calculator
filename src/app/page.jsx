@@ -63,15 +63,14 @@ export default function Home() {
   return (
     <>
       <Box maxW="400px" m="auto" p="4">
-        <form onSubmit={calculateLoanAmount}>
+        <form onSubmit={calculateLoanAmount} className="car-calculator">
           <FormControl id="downPayment" mb="4">
-            <FormLabel htmlFor="downPayment">Down Payment Amount</FormLabel>
             <Input
               value={downPayment}
               onChange={(e) => setDownPayment(e.target.value)}
               type="number"
-              placeholder="Enter down payment amount"
             />
+            <FormLabel htmlFor="downPayment">Enter down payment amount</FormLabel>
             {error && !downPayment ? (
               <Text color={"red"}>Provide the value for above</Text>
             ) : (
@@ -79,7 +78,6 @@ export default function Home() {
             )}
           </FormControl>
           <FormControl id="downPayment" mb="4">
-            <FormLabel htmlFor="downPayment">Current Salary</FormLabel>
             <Input
               value={salary}
               onChange={(e) => {
@@ -87,8 +85,8 @@ export default function Home() {
                 setMaxSalary(e.target.value / 10);
               }}
               type="number"
-              placeholder="Enter your current salary"
             />
+            <FormLabel htmlFor="downPayment">Enter your current salary</FormLabel>
             {error && !salary ? (
               <Text color={"red"}>Provide the value for above</Text>
             ) : (
@@ -96,9 +94,6 @@ export default function Home() {
             )}
           </FormControl>
           <FormControl id="downPayment" mb="4">
-            <FormLabel htmlFor="downPayment">
-              10% of your maximum salary
-            </FormLabel>
             <Input
               value={maxSalary}
               onChange={(e) => {
@@ -107,18 +102,17 @@ export default function Home() {
                 }
               }}
               type="number"
-              placeholder="Maximum of 10% of your salary"
             />
+            <FormLabel htmlFor="downPayment">
+              10% of your maximum salary
+            </FormLabel>
             {error && !maxSalary ? (
-              <Text color={"red"}>Provide the value for above</Text>
+              <Text color={"red"}>Maximum of 10% of your salary</Text>
             ) : (
               ""
             )}
           </FormControl>
           <FormControl id="downPayment" mb="4">
-            <FormLabel htmlFor="downPayment">
-              Tenure of loan 36 months - 60 months
-            </FormLabel>
             <Input
               value={tenure}
               onBlur={(e) => {
@@ -129,32 +123,37 @@ export default function Home() {
                 }
               }}
               type="number"
-              placeholder="Enter tenure of loan in month"
             />
+            <FormLabel htmlFor="downPayment">
+              Tenure of loan 36 months - 60 months
+            </FormLabel>
             {error && !tenure ? (
-              <Text color={"red"}>Tenur should be in 36 month to 60 month</Text>
+              <Text color={"red"}>Enter tenure of loan in month</Text>
             ) : (
               ""
             )}
             {/* {error ? "The month should be from 36 to 60" : ""} */}
           </FormControl>
           <FormControl id="downPayment" mb="4">
-            <FormLabel htmlFor="downPayment">Interest of Loan</FormLabel>
             <Input
               value={interest}
               onChange={(e) => setInterest(e.target.value)}
               type="number"
-              placeholder="Enter interest of loan"
             />
+            <FormLabel htmlFor="downPayment">Enter interest of loan</FormLabel>
             {error && !interest ? (
               <Text color={"red"}>Provide the value for above</Text>
             ) : (
               ""
             )}
           </FormControl>
-          <Button type="submit" colorScheme="blue">
+          <button type="submit" >
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
             Submit
-          </Button>
+          </button>
         </form>
         <Flex flexDir={'column'} gap={3} pt={3}>
         {!error && !isNaN(loanAmount) && <Text>Loan Amount : {loanAmount}</Text>}
