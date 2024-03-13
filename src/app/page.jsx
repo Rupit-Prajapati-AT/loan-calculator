@@ -25,28 +25,18 @@ export default function Home() {
     e.preventDefault();
     if (!downPayment) {
       setError(true);
-    } else {
-      setError(false);
     }
     if (!salary) {
       setError(true);
-    } else {
-      setError(false);
     }
     if (!maxSalary) {
       setError(true);
-    } else {
-      setError(false);
     }
     if (!tenure) {
       setError(true);
-    } else {
-      setError(false);
     }
     if (!interest) {
       setError(true);
-    } else {
-      setError(false);
     }
     var monthlyInterestRate = interest / 12 / 100;
     var amountWithoutInterest = Math.floor(
@@ -54,10 +44,8 @@ export default function Home() {
         (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, tenure))
     );
     setLoanAmount(amountWithoutInterest);
-    var totalInterestAmount = Math.floor(maxSalary * tenure);
+    var totalInterestAmount = parseInt(Math.floor(maxSalary * tenure));
     setTotalInterestAmount(totalInterestAmount - amountWithoutInterest);
-    var payment = parseInt(downPayment);
-    setAffordableAmount(payment + totalInterestAmount);
   };
 
   return (
@@ -65,12 +53,14 @@ export default function Home() {
       <Box maxW="400px" m="auto" p="4">
         <form onSubmit={calculateLoanAmount} className="car-calculator">
           <FormControl id="downPayment" mb="4">
+            <FormLabel htmlFor="downPayment">
+              Enter down payment amount
+            </FormLabel>
             <Input
               value={downPayment}
               onChange={(e) => setDownPayment(e.target.value)}
               type="number"
             />
-            <FormLabel htmlFor="downPayment">Enter down payment amount</FormLabel>
             {error && !downPayment ? (
               <Text color={"red"}>Provide the value for above</Text>
             ) : (
@@ -78,6 +68,9 @@ export default function Home() {
             )}
           </FormControl>
           <FormControl id="downPayment" mb="4">
+            <FormLabel htmlFor="downPayment">
+              Enter your current salary
+            </FormLabel>
             <Input
               value={salary}
               onChange={(e) => {
@@ -86,7 +79,6 @@ export default function Home() {
               }}
               type="number"
             />
-            <FormLabel htmlFor="downPayment">Enter your current salary</FormLabel>
             {error && !salary ? (
               <Text color={"red"}>Provide the value for above</Text>
             ) : (
@@ -94,6 +86,9 @@ export default function Home() {
             )}
           </FormControl>
           <FormControl id="downPayment" mb="4">
+            <FormLabel htmlFor="downPayment">
+              10% of your maximum salary
+            </FormLabel>
             <Input
               value={maxSalary}
               onChange={(e) => {
@@ -103,9 +98,6 @@ export default function Home() {
               }}
               type="number"
             />
-            <FormLabel htmlFor="downPayment">
-              10% of your maximum salary
-            </FormLabel>
             {error && !maxSalary ? (
               <Text color={"red"}>Maximum of 10% of your salary</Text>
             ) : (
@@ -113,41 +105,46 @@ export default function Home() {
             )}
           </FormControl>
           <FormControl id="downPayment" mb="4">
-            <Input
-              value={tenure}
-              onBlur={(e) => {
-                if (e.target.value >= 36 && e.target.value <= 60) {
-                  setTenure(e.target.value);
-                } else {
-                  setError(true);
-                }
-              }}
-              type="number"
-            />
             <FormLabel htmlFor="downPayment">
               Tenure of loan 36 months - 60 months
             </FormLabel>
+            <Input
+              value={tenure}
+              onChange={(e) => {
+                setTenure(e.target.value);
+              }}
+              type="number"
+            />
             {error && !tenure ? (
               <Text color={"red"}>Enter tenure of loan in month</Text>
             ) : (
               ""
             )}
-            {/* {error ? "The month should be from 36 to 60" : ""} */}
+            {(tenure && tenure < 36) || tenure > 60 ? (
+              <Text color={"red"}>The month should be from 36 to 60</Text>
+            ) : (
+              ""
+            )}
           </FormControl>
           <FormControl id="downPayment" mb="4">
+            <FormLabel htmlFor="downPayment">Enter interest of loan</FormLabel>
             <Input
               value={interest}
               onChange={(e) => setInterest(e.target.value)}
               type="number"
             />
-            <FormLabel htmlFor="downPayment">Enter interest of loan</FormLabel>
             {error && !interest ? (
               <Text color={"red"}>Provide the value for above</Text>
             ) : (
               ""
             )}
+            {(interest && interest < 0) || interest > 12 ? (
+              <Text color={"red"}>The interest should be from 0 to 12</Text>
+            ) : (
+              ""
+            )}
           </FormControl>
-          <button type="submit" >
+          <button type="submit">
             <span></span>
             <span></span>
             <span></span>
@@ -155,19 +152,27 @@ export default function Home() {
             Submit
           </button>
         </form>
-        <Flex flexDir={'column'} gap={3} pt={3}>
-        {!error && !isNaN(loanAmount) && <Text>Loan Amount : {loanAmount}</Text>}
-        {!error && !isNaN(totalInterestAmount) && (
-          <Text>Interest on Loan Amount : {totalInterestAmount}</Text>
-        )}
-        {!error && !isNaN(loanAmount) && !isNaN(totalInterestAmount) && (
-          <Text>
-            Total Loan Amount with Interest : {loanAmount + totalInterestAmount}
-          </Text>
-        )}
-        {!error && !isNaN(affordableAmount) && (
-          <Text>Affordable Car under : {affordableAmount}</Text>
-        )}
+        <Flex flexDir={"column"} gap={3} pt={3}>
+          {!error && loanAmount && (
+            <Text color={"#fff"}>Loan Amount : {loanAmount}</Text>
+          )}
+          {!error && totalInterestAmount && (
+            <Text color={"#fff"}>
+              Interest on Loan Amount : {totalInterestAmount}
+            </Text>
+          )}
+          {!error && loanAmount && totalInterestAmount && (
+            <Text color={"#fff"}>
+              Total Loan Amount with Interest :{" "}
+              {loanAmount + totalInterestAmount}
+            </Text>
+          )}
+          {!error && downPayment && (
+            <Text color={"#fff"}>
+              Affordable Car under :{" "}
+              {loanAmount + totalInterestAmount + parseInt(downPayment)}
+            </Text>
+          )}
         </Flex>
       </Box>
     </>
