@@ -156,18 +156,18 @@ export default function Home() {
           {!error && loanAmount && (
             <Text color={"#fff"}>Loan Amount : {loanAmount}</Text>
           )}
-          {!error && totalInterestAmount && (
+          {!error && loanAmount && (
             <Text color={"#fff"}>
               Interest on Loan Amount : {totalInterestAmount}
             </Text>
           )}
-          {!error && loanAmount && totalInterestAmount && (
+          {!error && loanAmount && (
             <Text color={"#fff"}>
               Total Loan Amount with Interest :{" "}
               {loanAmount + totalInterestAmount}
             </Text>
           )}
-          {!error && downPayment && (
+          {!error && downPayment && loanAmount && (
             <Text color={"#fff"}>
               Affordable Car under :{" "}
               {loanAmount + totalInterestAmount + parseInt(downPayment)}
