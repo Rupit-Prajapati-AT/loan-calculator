@@ -23,6 +23,7 @@ export default function Home() {
 
   const calculateLoanAmount = (e) => {
     e.preventDefault();
+    setError(false);
     if (!downPayment) {
       setError(true);
     }
