@@ -48,10 +48,20 @@ export default function Home() {
     var totalInterestAmount = parseInt(Math.floor(maxSalary * tenure));
     setTotalInterestAmount(totalInterestAmount - amountWithoutInterest);
   };
-
+  const reset = () => {
+    setDownPayment("");
+    setSalary("");
+    setMaxSalary("");
+    setTenure("");
+    setInterest("");
+    setTotalInterestAmount("");
+    setLoanAmount("");
+    setAffordableAmount("");
+    setError(false);
+  };
   return (
     <>
-      <Box maxW="400px" m="auto" p="4">
+      <Flex m="auto" p="4" gap={"20px"} alignItems={"center"}>
         <form onSubmit={calculateLoanAmount} className="car-calculator">
           <FormControl id="downPayment" mb="4">
             <FormLabel htmlFor="downPayment">
@@ -145,37 +155,53 @@ export default function Home() {
               ""
             )}
           </FormControl>
-          <button type="submit">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            Submit
-          </button>
+          <Flex gap={"20px"}>
+            <button type="submit">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+              Submit
+            </button>
+            <button type="reset" onClick={reset}>
+              Reset
+            </button>
+          </Flex>
         </form>
-        <Flex flexDir={"column"} gap={3} pt={3}>
-          {!error && loanAmount && (
-            <Text color={"#fff"}>Loan Amount : {loanAmount}</Text>
-          )}
-          {!error && loanAmount && (
-            <Text color={"#fff"}>
-              Interest on Loan Amount : {totalInterestAmount}
-            </Text>
-          )}
-          {!error && loanAmount && (
-            <Text color={"#fff"}>
-              Total Loan Amount with Interest :{" "}
-              {loanAmount + totalInterestAmount}
-            </Text>
-          )}
-          {!error && downPayment && loanAmount && (
-            <Text color={"#fff"}>
-              Affordable Car under :{" "}
-              {loanAmount + totalInterestAmount + parseInt(downPayment)}
-            </Text>
-          )}
-        </Flex>
-      </Box>
+        {!error && downPayment ? (
+          <Flex
+            flexDir={"column"}
+            gap={3}
+            pt={3}
+            backgroundColor={" rgba(0, 0, 0, 0.5)"}
+            borderRadius={"10px"}
+            p={"30px"}
+          >
+            {!error && loanAmount && (
+              <Text color={"#fff"}>Loan Amount : {loanAmount}</Text>
+            )}
+            {!error && loanAmount && (
+              <Text color={"#fff"}>
+                Interest on Loan Amount : {totalInterestAmount}
+              </Text>
+            )}
+            {!error && loanAmount && (
+              <Text color={"#fff"}>
+                Total Loan Amount with Interest :{" "}
+                {loanAmount + totalInterestAmount}
+              </Text>
+            )}
+            {!error && downPayment && loanAmount && (
+              <Text color={"#fff"}>
+                Affordable Car under :{" "}
+                {loanAmount + totalInterestAmount + parseInt(downPayment)}
+              </Text>
+            )}
+          </Flex>
+        ) : (
+          ""
+        )}
+      </Flex>
     </>
   );
 }
