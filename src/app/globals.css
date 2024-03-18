@@ -68,6 +68,11 @@ body {
   box-shadow: 0 0 5px #03e9f4, 0 0 25px #03e9f4, 0 0 50px #03e9f4,
     0 0 100px #03e9f4;
 }
+.car-calculator button.reset:hover {
+  background: #ff0000;
+  box-shadow: 0 0 5px #ff0000, 0 0 25px #ff0000, 0 0 50px #ff0000,
+    0 0 100px #ff0000;
+}
 .car-calculator button span {
   position: absolute;
   display: block;
@@ -80,6 +85,9 @@ body {
   height: 2px;
   background: linear-gradient(90deg, transparent, #03e9f4);
   animation: btn-anim1 1s linear infinite;
+}
+.car-calculator button.reset span:nth-child(1) {
+  background: linear-gradient(90deg, transparent, #ff0000);
 }
 
 @keyframes btn-anim1 {
@@ -101,6 +109,9 @@ body {
   animation: btn-anim2 1s linear infinite;
   animation-delay: 0.25s;
 }
+.car-calculator button.reset span:nth-child(2) {
+  background: linear-gradient(180deg, transparent, #ff0000);
+}
 
 @keyframes btn-anim2 {
   0% {
@@ -121,6 +132,9 @@ body {
   animation: btn-anim3 1s linear infinite;
   animation-delay: 0.5s;
 }
+.car-calculator button.reset span:nth-child(3) {
+  background: linear-gradient(270deg, transparent, #ff0000);
+}
 
 @keyframes btn-anim3 {
   0% {
@@ -140,6 +154,9 @@ body {
   background: linear-gradient(360deg, transparent, #03e9f4);
   animation: btn-anim4 1s linear infinite;
   animation-delay: 0.75s;
+}
+.car-calculator button.reset span:nth-child(4) {
+  background: linear-gradient(360deg, transparent, #ff0000);
 }
 
 @keyframes btn-anim4 {

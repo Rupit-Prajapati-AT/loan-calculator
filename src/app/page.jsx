@@ -163,12 +163,16 @@ export default function Home() {
               <span></span>
               Submit
             </button>
-            <button type="reset" onClick={reset}>
+            <button type="reset" onClick={reset} className="reset">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
               Reset
             </button>
           </Flex>
         </form>
-        {!error && downPayment ? (
+        {!error && downPayment && loanAmount ? (
           <Flex
             flexDir={"column"}
             gap={3}
