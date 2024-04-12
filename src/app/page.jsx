@@ -71,6 +71,7 @@ export default function Home() {
               value={downPayment}
               onChange={(e) => setDownPayment(e.target.value)}
               type="number"
+              min={0} // Add min attribute to enforce non-negative values
             />
             {error && !downPayment ? (
               <Text color={"red"}>Provide the value for above</Text>
@@ -89,6 +90,7 @@ export default function Home() {
                 setMaxSalary(e.target.value / 10);
               }}
               type="number"
+              min={0} // Add min attribute to enforce non-negative values
             />
             {error && !salary ? (
               <Text color={"red"}>Provide the value for above</Text>
@@ -108,6 +110,7 @@ export default function Home() {
                 }
               }}
               type="number"
+              min={0} // Add min attribute to enforce non-negative values
             />
             {error && !maxSalary ? (
               <Text color={"red"}>Maximum of 10% of your salary</Text>
@@ -125,6 +128,8 @@ export default function Home() {
                 setTenure(e.target.value);
               }}
               type="number"
+              min={36} // Add min attribute to enforce minimum value of 36
+              max={60} // Add max attribute to enforce maximum value of 60
             />
             {error && !tenure ? (
               <Text color={"red"}>Enter tenure of loan in month</Text>
@@ -143,6 +148,8 @@ export default function Home() {
               value={interest}
               onChange={(e) => setInterest(e.target.value)}
               type="number"
+              min={0} // Add min attribute to enforce non-negative values
+              max={12} // Add max attribute to enforce maximum value of 12
             />
             {error && !interest ? (
               <Text color={"red"}>Provide the value for above</Text>
