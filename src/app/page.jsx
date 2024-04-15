@@ -18,7 +18,6 @@ export default function Home() {
   const [interest, setInterest] = useState();
   const [totalInterestAmount, setTotalInterestAmount] = useState();
   const [loanAmount, setLoanAmount] = useState();
-  const [affordableAmount, setAffordableAmount] = useState();
   const [error, setError] = useState(false);
 
   const calculateLoanAmount = (e) => {
@@ -146,7 +145,7 @@ export default function Home() {
             <FormLabel htmlFor="downPayment">Enter interest of loan</FormLabel>
             <Input
               value={interest}
-              onChange={(e) => setInterest(e.target.value)}
+              onChange={(e) => setInterest(parseFloat(e.target.value))}
               type="number"
               min={0} // Add min attribute to enforce non-negative values
               max={12} // Add max attribute to enforce maximum value of 12
