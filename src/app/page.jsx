@@ -7,6 +7,11 @@ import {
   Box,
   Text,
   Flex,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -19,7 +24,7 @@ export default function Home() {
   const [totalInterestAmount, setTotalInterestAmount] = useState();
   const [loanAmount, setLoanAmount] = useState();
   const [error, setError] = useState(false);
-
+  const parse = (val) => val.replace(/^/, "");
   const calculateLoanAmount = (e) => {
     e.preventDefault();
     setError(false);
@@ -85,6 +90,7 @@ export default function Home() {
             <Input
               value={salary}
               onChange={(e) => {
+                console.log(e.target.value)
                 setSalary(e.target.value);
                 setMaxSalary(e.target.value / 10);
               }}
@@ -143,13 +149,14 @@ export default function Home() {
           </FormControl>
           <FormControl id="downPayment" mb="4">
             <FormLabel htmlFor="downPayment">Enter interest of loan</FormLabel>
-            <Input
+            <NumberInput
+              onChange={(valueString) => setInterest(parse(valueString))}
               value={interest}
-              onChange={(e) => setInterest(parseFloat(e.target.value))}
-              type="number"
-              min={0} // Add min attribute to enforce non-negative values
-              max={12} // Add max attribute to enforce maximum value of 12
-            />
+              min={0}
+              max={12}
+            >
+              <NumberInputField />
+            </NumberInput>
             {error && !interest ? (
               <Text color={"red"}>Provide the value for above</Text>
             ) : (
