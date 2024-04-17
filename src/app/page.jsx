@@ -3,15 +3,8 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Button,
-  Box,
   Text,
   Flex,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -66,7 +59,7 @@ export default function Home() {
   return (
     <>
       <Flex m="auto" p="4" gap={"20px"} alignItems={"center"}>
-        <form onSubmit={calculateLoanAmount} className="car-calculator">
+        <form  className="car-calculator">
           <FormControl id="downPayment" mb="4">
             <FormLabel htmlFor="downPayment">
               Enter down payment amount
@@ -149,14 +142,12 @@ export default function Home() {
           </FormControl>
           <FormControl id="downPayment" mb="4">
             <FormLabel htmlFor="downPayment">Enter interest of loan</FormLabel>
-            <NumberInput
-              onChange={(valueString) => setInterest(parse(valueString))}
-              value={interest}
-              min={0}
-              max={12}
-            >
-              <NumberInputField />
-            </NumberInput>
+            <Input
+                onChange={(e) => setInterest(e.target.value)}
+                value={interest}
+                min={0}
+                max={12}
+            />
             {error && !interest ? (
               <Text color={"red"}>Provide the value for above</Text>
             ) : (
@@ -169,7 +160,7 @@ export default function Home() {
             )}
           </FormControl>
           <Flex gap={"20px"}>
-            <button type="submit">
+            <button onClick={calculateLoanAmount} type="submit">
               <span></span>
               <span></span>
               <span></span>
