@@ -1,11 +1,5 @@
 "use client";
-import {
-  FormControl,
-  FormLabel,
-  Input,
-  Text,
-  Flex,
-} from "@chakra-ui/react";
+import { FormControl, FormLabel, Input, Text, Flex } from "@chakra-ui/react";
 import { useState } from "react";
 
 export default function Home() {
@@ -59,7 +53,7 @@ export default function Home() {
   return (
     <>
       <Flex m="auto" p="4" gap={"20px"} alignItems={"center"}>
-        <form  className="car-calculator">
+        <form className="car-calculator">
           <FormControl id="downPayment" mb="4">
             <FormLabel htmlFor="downPayment">
               Enter down payment amount
@@ -83,7 +77,7 @@ export default function Home() {
             <Input
               value={salary}
               onChange={(e) => {
-                console.log(e.target.value)
+                console.log(e.target.value);
                 setSalary(e.target.value);
                 setMaxSalary(e.target.value / 10);
               }}
@@ -143,10 +137,10 @@ export default function Home() {
           <FormControl id="downPayment" mb="4">
             <FormLabel htmlFor="downPayment">Enter interest of loan</FormLabel>
             <Input
-                onChange={(e) => setInterest(e.target.value)}
-                value={interest}
-                min={0}
-                max={12}
+              onChange={(e) => setInterest(e.target.value)}
+              value={interest}
+              min={0}
+              max={12}
             />
             {error && !interest ? (
               <Text color={"red"}>Provide the value for above</Text>
