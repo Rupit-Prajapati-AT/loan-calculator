@@ -59,7 +59,10 @@ export default function Home() {
             </FormLabel>
             <Input
               value={downPayment}
-              onChange={(e) => setDownPayment(Math.max(0,e.target.value))}
+              onChange={(e) => {
+                if (e.target.value > 0) setDownPayment(e.target.value);
+                else setError(true);
+              }}
               type="number"
               min={0} // Add min attribute to enforce non-negative values
             />
@@ -76,8 +79,8 @@ export default function Home() {
             <Input
               value={salary}
               onChange={(e) => {
-                setSalary(Math.max(0,e.target.value));
-                setMaxSalary(Math.max(0,e.target.value) / 10);
+                setSalary(Math.max(0, e.target.value));
+                setMaxSalary(Math.max(0, e.target.value) / 10);
               }}
               type="number"
               min={0} // Add min attribute to enforce non-negative values
@@ -96,7 +99,7 @@ export default function Home() {
               value={maxSalary}
               onChange={(e) => {
                 if (e.target.value <= salary / 10) {
-                  setMaxSalary(Math.max(0,e.target.value));
+                  setMaxSalary(Math.max(0, e.target.value));
                 }
               }}
               type="number"
@@ -115,7 +118,7 @@ export default function Home() {
             <Input
               value={tenure}
               onChange={(e) => {
-                setTenure(Math.max(0,e.target.value));
+                setTenure(Math.max(0, e.target.value));
               }}
               type="number"
               min={36} // Add min attribute to enforce minimum value of 36
@@ -135,7 +138,7 @@ export default function Home() {
           <FormControl id="downPayment" mb="4">
             <FormLabel htmlFor="downPayment">Enter interest of loan</FormLabel>
             <Input
-              onChange={(e) => setInterest(Math.max(0,e.target.value))}
+              onChange={(e) => setInterest(e.target.value)}
               value={interest}
               min={0}
               max={12}
