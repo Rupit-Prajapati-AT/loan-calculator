@@ -13,20 +13,10 @@ export default function Home() {
   const [error, setError] = useState(false);
   const calculateLoanAmount = (e) => {
     e.preventDefault();
+    console.log(error);
+    if (error) return;
     setError(false);
-    if (!downPayment) {
-      setError(true);
-    }
-    if (!salary) {
-      setError(true);
-    }
-    if (!maxSalary) {
-      setError(true);
-    }
-    if (!tenure) {
-      setError(true);
-    }
-    if (!interest) {
+    if (!downPayment || !salary || !maxSalary || !tenure || !interest) {
       setError(true);
     }
     var monthlyInterestRate = interest / 12 / 100;
@@ -46,7 +36,6 @@ export default function Home() {
     setInterest("");
     setTotalInterestAmount("");
     setLoanAmount("");
-    setAffordableAmount("");
     setError(false);
   };
   return (
@@ -118,7 +107,7 @@ export default function Home() {
             <Input
               value={tenure}
               onChange={(e) => {
-                setTenure(Math.max(0, e.target.value));
+                setTenure(Math.max(36, e.target.value));
               }}
               type="number"
               min={36} // Add min attribute to enforce minimum value of 36
@@ -138,7 +127,8 @@ export default function Home() {
           <FormControl id="downPayment" mb="4">
             <FormLabel htmlFor="downPayment">Enter interest of loan</FormLabel>
             <Input
-              onChange={(e) => setInterest(e.target.value)}
+              type="number"
+              onChange={(e) => setInterest(Math.max(0, e.target.value))}
               value={interest}
               min={0}
               max={12}
